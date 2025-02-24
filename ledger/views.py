@@ -30,14 +30,12 @@ recipes = [
     }
 ]
 
-# View for listing recipes
 def recipe_list(request):
     return render(request, "ledger/recipe_list.html", {"recipes": recipes})
 
-# View for displaying a single recipe
 def recipe_detail(request, recipe_id):
     try:
-        recipe = recipes[int(recipe_id) - 1]  # Adjust index since URLs start from 1
+        recipe = recipes[int(recipe_id) - 1]
     except IndexError:
-        return render(request, "ledger/not_found.html", status=404)  # Handle missing recipes
+        return render(request, "ledger/not_found.html", status=404)
     return render(request, "ledger/recipe_detail.html", {"recipe": recipe})
