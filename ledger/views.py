@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-# Define your recipes
 recipes = [
     {
         "name": "Chicken Adobo",
