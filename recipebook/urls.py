@@ -19,7 +19,9 @@ from django.urls import path, include
 from django.shortcuts import redirect
 
 urlpatterns = [
-    path('', lambda request: redirect('/recipes/list')),  # ✅ Redirect homepage to recipe list
-    path('admin/', admin.site.urls),
-    path('recipes/', include('ledger.urls')),  # ✅ Make sure "recipes/" includes ledger URLs
+    path("", lambda request: redirect("/recipes/list/")),
+    path("admin/", admin.site.urls),
+    path("recipes/", include("ledger.urls")),
+    path("recipe/", include("ledger.urls")),
 ]
+
