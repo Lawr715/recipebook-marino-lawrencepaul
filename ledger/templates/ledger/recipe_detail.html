@@ -4,13 +4,12 @@
     <title>{{ recipe.name }}</title>
 </head>
 <body>
-    <h1>Recipe Book</h1>
-    <h2>{{ recipe.name }}</h2>
+    <h1>{{ recipe.name }}</h1>
+    <p>Ingredients:</p>
     <ul>
-        {% for ingredient in recipe.ingredients %}
-            <li>{{ ingredient.name }} - {{ ingredient.quantity }}</li>
+        {% for recipe_ingredient in recipe.recipeingredient_set.all %}
+            <li>{{ recipe_ingredient.quantity }} - {{ recipe_ingredient.ingredient.name }}</li>
         {% endfor %}
     </ul>
-    <a href="/recipes/list/">Back to Recipe List</a>
 </body>
 </html>

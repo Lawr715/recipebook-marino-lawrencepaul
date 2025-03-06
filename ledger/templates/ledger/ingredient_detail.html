@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ ingredient.name }}</title>
+</head>
+<body>
+    <h1>Ingredient: {{ ingredient.name }}</h1>
+    
+    <h2>Used in Recipes:</h2>
+    <ul>
+        {% for recipe_ingredient in ingredient.recipeingredient_set.all %}
+            <li>
+                <a href="{% url 'ledger:recipe-detail' recipe_ingredient.recipe.id %}">
+                    {{ recipe_ingredient.recipe.name }}
+                </a>
+            </li>
+        {% empty %}
+            <p>No recipes use this ingredient yet.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'ledger:recipe-list' %}">Back to Recipe List</a>
+</body>
+</html>
