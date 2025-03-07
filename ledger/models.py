@@ -8,7 +8,7 @@ class Ingredient(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("ledger:ingredient-detail", args=[self.pk])  # ✅ Sets absolute URL
+        return reverse("ledger:ingredient-detail", args=[self.pk])
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255)
@@ -17,12 +17,12 @@ class Recipe(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("ledger:recipe-detail", args=[self.pk])  # ✅ Sets absolute URL
+        return reverse("ledger:recipe-detail", args=[self.pk]) 
 
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=255)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name="recipe")  # ✅ related_name for Ingredient
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="ingredients")  # ✅ related_name for Recipe
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name="recipe")
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="ingredients")
 
     def __str__(self):
         return f"{self.quantity} of {self.ingredient.name} in {self.recipe.name}"

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Ingredient, Recipe, RecipeIngredient
 
-class RecipeIngredientInline(admin.TabularInline):  # ✅ Inline editing for ingredients
+class RecipeIngredientInline(admin.TabularInline):
     model = RecipeIngredient
     extra = 1
 
@@ -13,7 +13,7 @@ class IngredientAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ["name"]
     search_fields = ["name"]
-    inlines = [RecipeIngredientInline]  # ✅ Shows ingredients inside Recipe
+    inlines = [RecipeIngredientInline]
 
 @admin.register(RecipeIngredient)
 class RecipeIngredientAdmin(admin.ModelAdmin):
