@@ -5,11 +5,11 @@
 </head>
 <body>
     <h1>{{ recipe.name }}</h1>
-    <p>Ingredients:</p>
     <ul>
-        {% for recipe_ingredient in recipe.recipeingredient_set.all %}
-            <li>{{ recipe_ingredient.quantity }} - {{ recipe_ingredient.ingredient.name }}</li>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
         {% endfor %}
     </ul>
+    <a href="{% url 'ledger:recipe-list' %}">Back to Recipes</a>
 </body>
 </html>

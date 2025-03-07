@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path("", lambda request: redirect("ledger:recipe-list")),
     path("admin/", admin.site.urls),
-    path("", include("ledger.urls")),  # ✅ Includes all patterns from ledger.urls directly
+    path("recipes/", include("ledger.urls")),
 ]
-
-
