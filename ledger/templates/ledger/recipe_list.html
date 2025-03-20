@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Recipe List</title>
-</head>
-<body>
-    <h1>Recipe Book</h1>
+{% extends "base.html" %}
+
+{% block title %}Recipe List{% endblock %}
+
+{% block page_heading %}Recipe List{% endblock %}
+
+{% block content %}
     <ul>
         {% for recipe in recipes %}
             <li>
@@ -12,5 +12,4 @@
             </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

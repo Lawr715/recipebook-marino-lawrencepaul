@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{{ recipe.name }}</title>
-</head>
-<body>
-    <h1>{{ recipe.name }}</h1>
+{% extends "base.html" %}
+
+{% block title %}{{ recipe.name }}{% endblock %}
+
+{% block page_heading %}{{ recipe.name }}{% endblock %}
+
+{% block content %}
     <ul>
         {% for ingredient in recipe.ingredients.all %}
             <li>{{ ingredient.quantity }} of {{ ingredient.ingredient.name }}</li>
         {% endfor %}
     </ul>
+    <p>Author: {{ recipe.author }}</p>
     <a href="{% url 'ledger:recipe-list' %}">Back to Recipes</a>
-</body>
-</html>
+{% endblock %}
