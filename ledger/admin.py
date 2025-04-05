@@ -1,12 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Ingredient, Recipe, RecipeIngredient, Profile
+from .models import Ingredient, Recipe, RecipeIngredient, Profile, RecipeImage
 
 class RecipeIngredientInline(admin.TabularInline):
     """ Allows inline editing of Recipe Ingredients within a Recipe """
     model = RecipeIngredient
     extra = 1
+
+class RecipeImageInline(admin.TabularInline):
+    """ Allows inline editing of Recipe Images within a Recipe """
+    model = RecipeImage
+    extra = 1  # Allows adding one additional image by default
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
@@ -18,7 +23,7 @@ class RecipeAdmin(admin.ModelAdmin):
     """ Admin customization for Recipe model """
     list_display = ["name", "author", "created_on", "updated_on"]  # Added author, created_on, updated_on
     search_fields = ["name", "author__username"]
-    inlines = [RecipeIngredientInline]
+    inlines = [RecipeIngredientInline, RecipeImageInline]  # Added RecipeImageInline
     list_filter = ["author", "created_on"]
 
 @admin.register(RecipeIngredient)
@@ -27,6 +32,13 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
     list_display = ["recipe", "ingredient", "quantity"]
     list_filter = ["recipe"]
     search_fields = ["ingredient__name", "recipe__name"]
+
+@admin.register(RecipeImage)
+class RecipeImageAdmin(admin.ModelAdmin):
+    """ Admin customization for RecipeImage model """
+    list_display = ["recipe", "description"]
+    list_filter = ["recipe"]
+    search_fields = ["recipe__name", "description"]
 
 class ProfileInline(admin.StackedInline):
     """ Allows inline editing of Profile in User Admin """

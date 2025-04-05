@@ -5,6 +5,10 @@
 {% block page_heading %}Recipe List{% endblock %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'ledger:add-recipe' %}">➕ Add New Recipe</a></p>
+    {% endif %}
+    
     <ul>
         {% for recipe in recipes %}
             <li>

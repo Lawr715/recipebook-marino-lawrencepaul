@@ -11,5 +11,21 @@
         {% endfor %}
     </ul>
     <p>Author: {{ recipe.author }}</p>
+
+    <h3>Images</h3>
+    {% if recipe.images.all %}
+        <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            {% for image in recipe.images.all %}
+                <div>
+                    <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 300px; max-height: 300px;">
+                    <p>{{ image.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images for this recipe yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'ledger:add-image' recipe.id %}">Upload a new image for this recipe</a></p>
     <a href="{% url 'ledger:recipe-list' %}">Back to Recipes</a>
 {% endblock %}
