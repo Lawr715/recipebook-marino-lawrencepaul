@@ -1,20 +1,27 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Recipe, RecipeIngredient, RecipeImage
-from .forms import RecipeImageForm, RecipeIngredientFormSet
 from django.forms import modelform_factory
 
+from .models import Recipe, RecipeIngredient, RecipeImage
+from .forms import RecipeImageForm, RecipeIngredientFormSet
+
+# Dynamically create a basic form for the Recipe model
 RecipeForm = modelform_factory(Recipe, fields=["name"])
 
 @login_required
+def home_view(request):
+    """Simple homepage view for logged-in users."""
+    return render(request, "ledger/home.html")
+
+@login_required
 def recipe_list(request):
-    """Fetch all recipes from the database and display them (only for logged-in users)."""
+    """Display a list of all recipes (only for logged-in users)."""
     recipes = Recipe.objects.all()
     return render(request, "ledger/recipe_list.html", {"recipes": recipes})
 
 @login_required
 def recipe_detail(request, pk):
-    """Fetch a specific recipe using its PK and display its ingredients and author (only for logged-in users)."""
+    """Display the details of a specific recipe, including ingredients and images."""
     recipe = get_object_or_404(Recipe, pk=pk)
     ingredients = RecipeIngredient.objects.filter(recipe=recipe)
     images = RecipeImage.objects.filter(recipe=recipe)
@@ -22,12 +29,12 @@ def recipe_detail(request, pk):
         "recipe": recipe,
         "ingredients": ingredients,
         "images": images,
-        "author": recipe.author
+        "author": recipe.author,
     })
 
 @login_required
 def add_image(request, pk):
-    """Allows users to upload a new image for a specific recipe."""
+    """Allow users to upload an image for a specific recipe."""
     recipe = get_object_or_404(Recipe, pk=pk)
 
     if request.method == "POST":
@@ -40,11 +47,14 @@ def add_image(request, pk):
     else:
         form = RecipeImageForm()
 
-    return render(request, "ledger/add_image.html", {"form": form, "recipe": recipe})
+    return render(request, "ledger/add_image.html", {
+        "form": form,
+        "recipe": recipe
+    })
 
 @login_required
 def add_recipe(request):
-    """Allows users to create a new recipe with ingredients."""
+    """Allow users to create a new recipe along with its ingredients."""
     if request.method == "POST":
         recipe_form = RecipeForm(request.POST)
         formset = RecipeIngredientFormSet(request.POST)
