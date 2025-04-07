@@ -5,7 +5,6 @@ from django.forms import modelform_factory
 from .models import Recipe, RecipeIngredient, RecipeImage
 from .forms import RecipeImageForm, RecipeIngredientFormSet
 
-# Dynamically create a basic form for the Recipe model
 RecipeForm = modelform_factory(Recipe, fields=["name"])
 
 @login_required
